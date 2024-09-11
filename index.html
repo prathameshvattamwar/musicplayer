@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Voice-Controlled Music Player</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/37df75b44e.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <h1>Voice-Controlled Music Player</h1>
+
+            <div class="player-controls">
+                <div class="track-info">
+                    <p id="track-title">Now Playing: Song 1</p>
+                </div>
+
+                <div class="controls">
+                    <button id="prev-track" class="control-btn">
+                        <i class="fas fa-backward"></i>
+                    </button>
+
+                    <button id="play-pause" class="control-btn">
+                        <i class="fas fa-play" id="play-icon"></i>
+                        <i class="fas fa-pause" id="pause-icon" style="display:none;"></i>
+                    </button>
+
+                    <button id="next-track" class="control-btn">
+                        <i class="fas fa-forward"></i>
+                    </button>
+                </div>
+
+                <div class="progress-container">
+                    <input type="range" id="progress-bar" value="0" step="1" min="0" max="100">
+                </div>
+
+                <button id="start-recognition" class="voice-btn">
+                    <i class="fas fa-microphone"></i> Tap & Talk
+                </button>
+                <p id="voice-status">Say: "Play", "Pause", "Next", or "Previous"</p>
+            </div>
+        </div>
+    </div>
+
+    <audio id="audio-player" hidden>
+        <source src="song1.mp3" type="audio/mp3">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

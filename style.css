@@ -70,14 +70,95 @@ h1 {
     align-items: center;
 }
 
+/* Progress Bar Container */
 .progress-container {
     width: 100%;
     margin: 20px 0;
+    height: 12px; /* Consistent height for the progress bar */
+    position: relative;
+    border-radius: 10px;
+    background: #333;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+    border: 1px solid #666;
+    display: flex;
+    align-items: center; /* Ensures the thumb is vertically centered */
 }
 
+/* Progress Bar (Metallic Style) */
 #progress-bar {
+    -webkit-appearance: none;
+    appearance: none;
     width: 100%;
+    height: 100%; /* Ensure it takes the full height of the container */
+    background: linear-gradient(
+        90deg,
+        rgba(192, 192, 192, 1) 0%,
+        rgba(255, 255, 255, 1) 50%,
+        rgba(192, 192, 192, 1) 100%
+    );
+    border-radius: 10px;
+    border: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Custom Thumb/Handle for Progress Bar */
+#progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff, #999);
+    border: 2px solid #666;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
     cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    margin-top: -4px; /* Adjust this value to vertically center the thumb */
+}
+
+#progress-bar::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff, #999);
+    border: 2px solid #666;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    margin-top: -4px; /* Adjust this value to vertically center the thumb */
+}
+
+/* Add hover effect to thumb */
+#progress-bar::-webkit-slider-thumb:hover,
+#progress-bar::-moz-range-thumb:hover {
+    transform: scale(1.1); /* Slightly enlarge the thumb on hover */
+}
+
+/* Custom Track Background for Progress Bar (filled part) */
+#progress-bar::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgba(192, 192, 192, 1) 0%,
+        rgba(255, 255, 255, 1) 50%,
+        rgba(192, 192, 192, 1) 100%
+    );
+    border-radius: 10px;
+    border: none;
+}
+
+#progress-bar::-moz-range-track {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgba(192, 192, 192, 1) 0%,
+        rgba(255, 255, 255, 1) 50%,
+        rgba(192, 192, 192, 1) 100%
+    );
+    border-radius: 10px;
+    border: none;
 }
 
 .voice-btn {

@@ -137,3 +137,74 @@ startRecognitionButton.addEventListener('click', () => {
     recognition.start();
     voiceStatus.textContent = 'Voice recognition started. Listening...';
 });
+
+// Check if it's a mobile browser and handle accordingly
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+if (isMobile && navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
+    recognition.continuous = false; // Safari iOS issue: Disable continuous mode
+} else {
+    recognition.continuous = true; // Keep continuous mode on other platforms
+}
+
+// Enable interim results for faster feedback
+recognition.interimResults = true;
+recognition.lang = 'en-US';
+
+recognition.onstart = function () {
+    voiceStatus.textContent = 'Listening... Try saying "Play", "Pause", "Next", or "Previous".';
+};
+
+recognition.onresult = function (event) {
+    let spokenWords = event.results[0][0].transcript.toLowerCase();
+
+    console.log('You said:', spokenWords);
+
+    // Only react to final commands (when user finishes speaking)
+    if (event.results[0].isFinal) {
+        console.log('Final command:', spokenWords);
+        handleVoiceCommand(spokenWords);
+    }
+};
+
+recognition.onspeechend = function () {
+    voiceStatus.textContent = 'Listening paused. You can say another command.';
+};
+
+recognition.onerror = function (event) {
+    console.log('Speech Recognition Error:', event.error);
+    voiceStatus.textContent = 'Error occurred in recognition: ' + event.error;
+};
+
+// Function to handle voice commands
+function handleVoiceCommand(command) {
+    if (command.includes('play')) {
+        audioPlayer.play();
+        updatePlayPauseBtn();
+        voiceStatus.textContent = 'Playing track';
+    } else if (command.includes('pause')) {
+        audioPlayer.pause();
+        updatePlayPauseBtn();
+        voiceStatus.textContent = 'Paused';
+    } else if (command.includes('next')) {
+        nextTrack();
+        voiceStatus.textContent = 'Next track: ' + playlist[trackIndex].title;
+    } else if (command.includes('previous')) {
+        prevTrack();
+        voiceStatus.textContent = 'Previous track: ' + playlist[trackIndex].title;
+    } else {
+        voiceStatus.textContent = 'Command not recognized, try "Play", "Pause", "Next", or "Previous".';
+    }
+}
+
+// Start voice recognition when button is clicked
+startRecognitionButton.addEventListener('click', () => {
+    // Ensure microphone permissions are granted
+    navigator.permissions.query({ name: 'microphone' }).then(function (result) {
+        if (result.state === 'granted') {
+            recognition.start();
+            voiceStatus.textContent = 'Voice recognition started. Listening...';
+        } else {
+            alert('Microphone access is required for voice recognition.');
+        }
+    });
+});

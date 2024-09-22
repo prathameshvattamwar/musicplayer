@@ -32,7 +32,7 @@ function playMusic() {
     audio.play();
     isPlaying = true;
     playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-    nowPlaying.textContent = `Now Playing: ${songs[currentSongIndex]}`; // Update song name
+    nowPlaying.textContent = `Now Playing: ${songs[currentSongIndex]}`;
     updateProgress();
     audio.addEventListener('timeupdate', updateProgress);
 }
@@ -43,13 +43,19 @@ function pauseMusic() {
     playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
 }
 
+// Handle next song
 function nextSong() {
     currentSongIndex = (currentSongIndex + 1) % songs.length;
+    audio.src = songs[currentSongIndex];
+    audio.currentTime = 0; // Reset the song position
     playMusic();
 }
 
+// Handle previous song
 function prevSong() {
     currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+    audio.src = songs[currentSongIndex];
+    audio.currentTime = 0; // Reset the song position
     playMusic();
 }
 
@@ -62,7 +68,23 @@ function updateProgress() {
     const currentMinutes = Math.floor(audio.currentTime / 60);
     const currentSeconds = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
     currentTimeEl.textContent = `${currentMinutes}:${currentSeconds}`;
+    
+    // Set total time if metadata is loaded
+    if (audio.duration) {
+        const totalMinutes = Math.floor(audio.duration / 60);
+        const totalSeconds = Math.floor(audio.duration % 60).toString().padStart(2, '0');
+        totalTimeEl.textContent = `${totalMinutes}:${totalSeconds}`;
+    }
 }
+
+// Seek music to a specific time when the user clicks on the progress bar
+progressBar.addEventListener('input', (e) => {
+    const seekTime = (e.target.value / 100) * audio.duration;
+    audio.currentTime = seekTime;
+    if (!isPlaying) {
+        playMusic(); // Automatically play when seeking if paused
+    }
+});
 
 // Show total duration of the song when metadata is loaded
 audio.addEventListener('loadedmetadata', () => {

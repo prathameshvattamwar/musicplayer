@@ -1,188 +1,134 @@
+/* Global reset and Poppins font applied to everything */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
+/* Body Styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #282c34;
+    background-color: #1a1a1a;
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: white;
+    margin: 0;
 }
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-
+/* Music Player Styles */
 .music-player {
-    background-color: #1c1f26;
+    background-color: #333;
     padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-    width: 100%;
-    max-width: 400px;
+    border-radius: 20px;
     text-align: center;
-    margin: 0 10px;
+    width: 350px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
 }
 
-h1 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    font-weight: 600;
     color: #ffcc00;
 }
 
-.track-info {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-}
-
-.player-controls {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#now-playing {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #ccc;
 }
 
 .controls {
     display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin: 20px 0;
+    justify-content: space-evenly;
+    margin-bottom: 25px;
 }
 
 .control-btn {
-    background: none;
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
     border: none;
-    cursor: pointer;
-    font-size: 2rem;
-    color: #ffcc00;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Progress Bar Container */
-.progress-container {
-    width: 100%;
-    margin: 20px 0;
-    height: 12px; /* Consistent height for the progress bar */
-    position: relative;
-    border-radius: 10px;
-    background: #333;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
-    border: 1px solid #666;
-    display: flex;
-    align-items: center; /* Ensures the thumb is vertically centered */
-}
-
-/* Progress Bar (Metallic Style) */
-#progress-bar {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 100%; /* Ensure it takes the full height of the container */
-    background: linear-gradient(
-        90deg,
-        rgba(192, 192, 192, 1) 0%,
-        rgba(255, 255, 255, 1) 50%,
-        rgba(192, 192, 192, 1) 100%
-    );
-    border-radius: 10px;
-    border: none;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-/* Custom Thumb/Handle for Progress Bar */
-#progress-bar::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
+    padding: 15px;
     border-radius: 50%;
-    background: radial-gradient(circle, #fff, #999);
-    border: 2px solid #666;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-    margin-top: -4px; /* Adjust this value to vertically center the thumb */
-}
-
-#progress-bar::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #fff, #999);
-    border: 2px solid #666;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-    margin-top: -4px; /* Adjust this value to vertically center the thumb */
-}
-
-/* Add hover effect to thumb */
-#progress-bar::-webkit-slider-thumb:hover,
-#progress-bar::-moz-range-thumb:hover {
-    transform: scale(1.1); /* Slightly enlarge the thumb on hover */
-}
-
-/* Custom Track Background for Progress Bar (filled part) */
-#progress-bar::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        rgba(192, 192, 192, 1) 0%,
-        rgba(255, 255, 255, 1) 50%,
-        rgba(192, 192, 192, 1) 100%
-    );
-    border-radius: 10px;
-    border: none;
-}
-
-#progress-bar::-moz-range-track {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        rgba(192, 192, 192, 1) 0%,
-        rgba(255, 255, 255, 1) 50%,
-        rgba(192, 192, 192, 1) 100%
-    );
-    border-radius: 10px;
-    border: none;
-}
-
-.voice-btn {
-    background-color: #ffcc00;
+    font-size: 18px;
     color: #333;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    font-size: 1rem;
     cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Progress Container */
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+#progress {
+    width: 70%;
+    appearance: none;
+    height: 8px;
+    background: #555;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+}
+
+#progress::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ffcc00;
+}
+
+#current-time, #total-time {
+    font-size: 12px;
+    color: #ccc;
+}
+
+/* Mic Button and Animation */
+.voice-btn {
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 30px;
+    cursor: pointer;
+    color: #333;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
 }
 
 .voice-btn:hover {
-    background-color: #e6b800;
+    transform: translateY(-5px);
 }
 
-#voice-status {
+.mic-animation {
     margin-top: 10px;
-    font-size: 0.9rem;
-    color: #888;
+    color: #ffcc00;
+    font-size: 16px;
+    font-weight: 500;
+    display: none;
 }
 
-.fas {
-    margin: 0 5px;
+/* Voice Commands Info */
+.voice-commands {
+    font-size: 12px;
+    margin-top: 10px;
+    color: #aaa;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .music-player {
+        width: 95%;
+    }
 }

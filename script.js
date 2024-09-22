@@ -32,6 +32,7 @@ function playMusic() {
     audio.play();
     isPlaying = true;
     playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    nowPlaying.textContent = `Now Playing: ${songs[currentSongIndex]}`; // Update song name
     updateProgress();
     audio.addEventListener('timeupdate', updateProgress);
 }
